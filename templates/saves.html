@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}Saves{% endblock %}
+
+{% block content %}
+  <h1>All your saved recipes will be here!</h1>
+
+  <h2> {{ login }}'s recipes are: </h2>
+
+  {% for doc in doc_list %}
+    <p> {{ doc.recipe }} </p>
+  {% endfor %}
+
+
+{% endblock %}

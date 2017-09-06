@@ -46,12 +46,12 @@ github = oauth.remote_app(
     access_token_url='https://github.com/login/oauth/access_token',
     authorize_url='https://github.com/login/oauth/authorize'
 )
-'''app.config['MONGO_HOST'] = os.environ['MONGO_HOST']
+app.config['MONGO_HOST'] = os.environ['MONGO_HOST']
 app.config['MONGO_PORT'] = int(os.environ['MONGO_PORT'])
 app.config['MONGO_DBNAME'] = os.environ['MONGO_DBNAME']
 app.config['MONGO_USERNAME'] = os.environ['MONGO_USERNAME']
 app.config['MONGO_PASSWORD'] = os.environ['MONGO_PASSWORD']
-mongo = PyMongo(app)'''
+mongo = PyMongo(app)
 
 @github.tokengetter
 def get_github_oauth_token():
@@ -64,6 +64,29 @@ def inject_logged_in():
 @app.context_processor
 def inject_github_org():
     return dict(github_org=os.getenv('GITHUB_ORG'))
+
+@app.route('/result')
+def saveRedpasta():
+    user_recipe = request.args["recipe"]
+    login = session['user_data']['login']
+    mongo.db.messages.insert_one({"user" : login, "recipe" : user_recipe })
+    flash ("You have saved this recipe!")
+
+@app.route('/save')
+def save():
+    if not logged_in():
+        flash("You must be logged in to do that.", 'error')
+        return redirect(url_for('homepage2'))
+
+    # Finds all the messages that the current user ever submitted
+    login = session['user_data']['login']
+    user_recipe = []
+    for x in mongo.db.recipe.find({"user": login}):
+        user_messages.append(x)
+
+
+
+return render_template('page4.html', login = login, doc_list = user_messages)
 
 @app.route('/')
 def home():
