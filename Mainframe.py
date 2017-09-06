@@ -2,6 +2,7 @@ import os
 from flask import Flask, redirect, url_for, session, request, jsonify
 from flask_oauthlib.client import OAuth
 from flask import render_template, flash, Markup
+from flask_pymongo import PyMongo
 
 from github import Github
 
@@ -12,15 +13,13 @@ import traceback
 
 class GithubOAuthVarsNotDefined(Exception):
     '''raise this if the necessary env variables are not defined '''
-print(os.getenv('GITHUB_CLIENT_ID'))
-print(os.getenv('GITHUB_CLIENT_SECRET'))
-print(os.getenv('GITHUB_ORG'))
-print(os.getenv('APP_SECRET_KEY'))
 
 if os.getenv('GITHUB_CLIENT_ID') == None or \
         os.getenv('GITHUB_CLIENT_SECRET') == None or \
         os.getenv('APP_SECRET_KEY') == None or \
         os.getenv('GITHUB_ORG') == None:
+
+
     raise GithubOAuthVarsNotDefined('''
       Please define environment variables:
          GITHUB_CLIENT_ID
@@ -36,11 +35,6 @@ app.debug = False
 app.secret_key = os.environ['APP_SECRET_KEY']
 oauth = OAuth(app)
 
-# This code originally from https://github.com/lepture/flask-oauthlib/blob/master/example/github.py
-# Edited by P. Conrad for SPIS 2016 to add getting Client Id and Secret from
-# environment variables, so that this will work on Heroku.
-
-
 github = oauth.remote_app(
     'github',
     consumer_key=os.environ['GITHUB_CLIENT_ID'],
@@ -52,6 +46,12 @@ github = oauth.remote_app(
     access_token_url='https://github.com/login/oauth/access_token',
     authorize_url='https://github.com/login/oauth/authorize'
 )
+'''app.config['MONGO_HOST'] = os.environ['MONGO_HOST']
+app.config['MONGO_PORT'] = int(os.environ['MONGO_PORT'])
+app.config['MONGO_DBNAME'] = os.environ['MONGO_DBNAME']
+app.config['MONGO_USERNAME'] = os.environ['MONGO_USERNAME']
+app.config['MONGO_PASSWORD'] = os.environ['MONGO_PASSWORD']
+mongo = PyMongo(app)'''
 
 @github.tokengetter
 def get_github_oauth_token():
