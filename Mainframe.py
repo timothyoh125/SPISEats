@@ -66,10 +66,10 @@ def inject_github_org():
     return dict(github_org=os.getenv('GITHUB_ORG'))
 
 @app.route('/result')
-def saveRedpasta():
+def saverecipe():
     user_recipe = request.args["recipe"]
     login = session['user_data']['login']
-    mongo.db.messages.insert_one({"user" : login, "recipe" : user_recipe })
+    mongo.db.recipesdbtim.insert_one({"user" : login, "recipe" : user_recipe })
     flash ("You have saved this recipe!")
 
 @app.route('/save')
@@ -81,8 +81,8 @@ def save():
     # Finds all the recipes that the current user ever saved
     login = session['user_data']['login']
     user_recipe = []
-    for x in mongo.db.recipe.find({"user": login}):
-        user_messages.append(x)
+    for x in mongo.db.recipesdbtim.find({"user": login}):
+        user_recipes.append(x)
         
     return render_template('saves.html', login = login, doc_list = user_recipes)
 
