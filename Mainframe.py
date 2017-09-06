@@ -78,12 +78,13 @@ def save():
         flash("You must be logged in to do that.", 'error')
         return redirect(url_for('homepage2'))
 
-    # Finds all the messages that the current user ever submitted
+    # Finds all the recipes that the current user ever saved
     login = session['user_data']['login']
     user_recipe = []
     for x in mongo.db.recipe.find({"user": login}):
         user_messages.append(x)
-
+        
+    return render_template('saves.html', login = login, doc_list = user_recipes)
 
 
 return render_template('page4.html', login = login, doc_list = user_messages)
