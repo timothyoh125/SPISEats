@@ -71,12 +71,13 @@ def saverecipe():
     login = session['user_data']['login']
     mongo.db.recipesdbtim.insert_one({"user" : login, "recipe" : user_recipe })
     flash ("You have saved this recipe!")
+    return redirect(url_for('home')) 
 
 @app.route('/save')
 def save():
     if not logged_in():
         flash("You must be logged in to do that.", 'error')
-        return redirect(url_for('homepage2'))
+        return redirect(url_for('home'))
 
     # Finds all the recipes that the current user ever saved
     login = session['user_data']['login']
@@ -85,9 +86,6 @@ def save():
         user_recipes.append(x)
         
     return render_template('saves.html', login = login, doc_list = user_recipes)
-
-
-return render_template('page4.html', login = login, doc_list = user_messages)
 
 @app.route('/')
 def home():

@@ -1,4 +1,9 @@
-export GITHUB_CLIENT_ID=f805bac8bd93c5c4c6ae
-export GITHUB_CLIENT_SECRET=9f83b4fd040bc5a7d6aaed370189a2ca43487462 
+export GITHUB_CLIENT_ID=3b3676c6a28ffec55f76
+export GITHUB_CLIENT_SECRET=f186d3a6be35cf0565d79369bf13d8cbadfeed5d
 export GITHUB_ORG=ucsd-cse-spis-2017
 export APP_SECRET_KEY=randomcharactersyoutype
+export MONGO_HOST=ds123084.mlab.com
+export MONGO_DBNAME=recipesdbtim
+export MONGO_PASSWORD=aloedrink2
+export MONGO_PORT=23084
+export MONGO_USERNAME=dbuser1
