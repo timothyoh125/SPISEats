@@ -1,0 +1,4 @@
+export GITHUB_CLIENT_ID=f805bac8bd93c5c4c6ae
+export GITHUB_CLIENT_SECRET=9f83b4fd040bc5a7d6aaed370189a2ca43487462 
+export GITHUB_ORG=ucsd-cse-spis-2017
+export APP_SECRET_KEY=randomcharactersyoutype
