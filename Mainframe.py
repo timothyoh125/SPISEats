@@ -83,9 +83,9 @@ def save():
     login = session['user_data']['login']
     user_recipe = []
     for x in mongo.db.recipesdbtim.find({"user": login}):
-        user_recipes.append(x)
+        user_recipe.append(x)
         
-    return render_template('saves.html', login = login, doc_list = user_recipes)
+    return render_template('saves.html', login = login, doc_list = user_recipe)
 
 @app.route('/')
 def home():
