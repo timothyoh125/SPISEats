@@ -57,6 +57,9 @@ mongo = PyMongo(app)
 def get_github_oauth_token():
     return session.get('github_token')
 
+def logged_in():
+    return 'github_token' in session 
+
 @app.context_processor
 def inject_logged_in():
     return dict(logged_in=('github_token' in session))
