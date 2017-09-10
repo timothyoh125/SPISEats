@@ -155,27 +155,27 @@ def authorized():
 
 @app.route('/redpasta')
 def redpasta():
-    return render_template('VB1.html')
+    return render_template('spenderlunch.html')
 
 @app.route('/seitan')
 def seitan():
-    return render_template('VB2.html')
+    return render_template('spenderdinner.html')
 
 @app.route('/cheesecake')
 def cheesecake():
-    return render_template('VB3.html')
+    return render_template('spenderbreakfast.html')
 
 @app.route('/egg')
 def egg():
-    return render_template('VF1.html')
+    return render_template('budgetbreakfast.html')
 
 @app.route('/ramen')
 def ramen():
-    return render_template('VF2.html')
+    return render_template('budgetlunch.html')
 
 @app.route('/rice')
 def rice():
-    return render_template('VF3.html')
+    return render_template('budgetdinner.html')
 
 
 
